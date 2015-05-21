@@ -18,7 +18,6 @@ class user
 		$user->$email=$email;
 		return $user; 
 	}
-	
 
 }
 ?>
