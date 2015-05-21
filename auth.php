@@ -8,7 +8,7 @@ class token {
 	// Stvara novi token za korisnika čiji ID predamo
 	function create($userIdentification) {
 		$this->userID = $userIdentification;
-		$this->value = uniqid();
+		$this->value = sha1(uniqid());
 		$sql = "INSERT INTO token (userID, value, created, validTo) ".
 				"VALUES ($this->userID, '$this->value', ".
 				"NOW(), DATE_ADD(NOW(),INTERVAL 12 HOUR))";
