@@ -2,25 +2,26 @@
 class userController
 {		
 		public function register($data){
+			
 			extract($data);
+			if($this->checkExist($username)===TRUE){
+				return "Username is taken. <br>";
+			}
 			$sql = "INSERT INTO user (username, password, firstName, lastName, email) ".
 			"VALUES ('$username', '$password', '$firstName', ".
 			"'$lastName', '$email')";
-			//provjera dali je username zauzet
-			
-			if($this->checkExist($username)==TRUE){
-				DB::$db->query($sql);
-				return TRUE;
-			}
-			echo "username is taken";
-			return FALSE; 
-			
-			
+			DB::$db->query($sql);
+			return TRUE;
 		}
 		
 		
-		public function login(){
-			
+		public function login($data){
+			extract($data);
+			$sql = "SELECT ID FROM user WHERE username = '$username' AND password = '$password'";
+			$result = DB::$db->toArray($sql);
+			$userID = $result->ID;
+			if (!isset($userID) || empty($userID)) return "Credentials false!<br>";
+			return $userID;
 		}
 		
 		public function checkExist($username){
