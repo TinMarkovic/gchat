@@ -4,16 +4,11 @@ require_once "db.php";
 
 class token {
 	public $userID, $value;
-	public static $cookieName = 'Gchat';
-	
-	function __construct(){
-		$this->cookieName = 'Gchat';
-	}
 	
 	// Stvara novi token za korisnika čiji ID predamo
 	function create($userIdentification) {
 		$this->userID = $userIdentification;
-		$this->value = uniqid();
+		$this->value = sha1(uniqid());
 		$sql = "INSERT INTO token (userID, value, created, validTo) ".
 				"VALUES ($this->userID, '$this->value', ".
 				"NOW(), DATE_ADD(NOW(),INTERVAL 12 HOUR))";
@@ -32,7 +27,6 @@ class token {
 		
 		$sql = "SELECT userID FROM token WHERE value = '$userToken' AND (NOW() < validTo)";
 		$result = DB::$db->query($sql);
-		echo "bla bla <br>";
 		if (mysqli_num_rows($result) == 0)
 			return false;
 		$x = $result->fetch_object();
