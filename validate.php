@@ -1,7 +1,8 @@
 <?php
 
 class validate {
-	// Provjerava dužinu i vraća je li odgovara uvjetima
+	
+	
 	function length($key, $entry, $minLength, $maxLength){
 		if ((strlen($entry) < $minLength)||(strlen($entry) > $maxLength)) 
 			if (strlen($entry) < $minLength) return("Your $key has ". strlen($entry)." signs, it should have more than $minLength .<br>");
@@ -10,11 +11,15 @@ class validate {
 			return true;
 		return false;
 	}
+	
+	
 	function email($entry){
 		if (strpos($entry ,'@') !== false)
 			return true;
 		return "Your email needs to have an '@' sign. <br>";
 	}
+	
+	
 	function password($entry){
 		$uppercase = preg_match('@[A-Z]@', $entry);
 		$lowercase = preg_match('@[a-z]@', $entry);
@@ -29,50 +34,50 @@ class validate {
 		}
 		return $error;
 	}
+	
+	
 	function registerForm($dataset){
 		$error = "";
 		foreach($dataset as $key => $entry){
-			switch($dataset){
+			switch($key){
 				case "username":
-					$success = length($key,$entry,4,20);
-					if (!$success) {
+					$success = $this->length($key,$entry,4,20);
+					if ($success !== TRUE) {
 						$error = $error . $success;
 					} 
 					break;
 				case "password":
-					$success = length($key,$entry,6,60);
-					if (!$success) {
+					$success = $this->length($key,$entry,6,60);
+					if ($success !== TRUE) {
 						$error = $error . $success;
 					} 
-					$success = password($entry);
-					if (!$success) {
+					$success = $this->password($entry);
+					if ($success !== TRUE) {
 						$error = $error . $success;
 					} 
 					break;
 				case "firstName":
-					$success = length("first name",$entry,0,20);
-					if (!$success) {
+					$success = $this->length("first name",$entry,4,20);
+					if ($success !== TRUE) {
 						$error = $error . $success;
 					} 
 					break;
 				case "lastName":
-					$success = length("last name",$entry,0,20);
-					if (!$success) {
+					$success = $this->length("last name",$entry,4,20);
+					if ($success !== TRUE) {
 						$error = $error . $success;
 					} 
 					break;
 				case "email":
-					$success = length($key,$entry,4,20);
-					if (!$success) {
-						$error = $error . $success;
-					} 
-					$success = email($entry);
-					if (!$success) {
+					$success = $this->email($entry);
+					if ($success !== TRUE) {
 						$error = $error . $success;
 					} 
 					break;
 			} // end switch
 		} // end foreach
+		
+		
 		if ($error == "")
 			return true;
 		else
