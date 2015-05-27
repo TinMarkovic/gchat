@@ -1,23 +1,15 @@
 <?php
 
-class user
+class User
 {
-	private $username;
-	private $password;
-	private $firstName;
-	private $lastName;
-	private $email;
-	
-	public static function fromArray($args){
-		extract($args);
-		$user=new self();
-		$user->$username=$username;
-		$user->$password=$password;
-		$user->$firstName=$firstName;
-		$user->$lastName=$lastName;
-		$user->$email=$email;
-		return $user; 
-	}
+	private $_id;
+	private $_username;
+	private $_password;
+	private $_firstName;
+	private $_lastName;
+	private $_email;
+	private $_birthday;
+	private $_status;
 
 }
 ?>
