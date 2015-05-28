@@ -11,17 +11,7 @@ class User
 	private $_birthday;
 	private $_status;
 
-	public function __construct($username, $password, $firstName, $lastName, $email, $birthday){
-			$this->_username = $username;
-			$this->_password = $password;
-			$this->_firstName = $firstName;
-			$this->_lastName = $lastName;
-			$this->_email = $email;
-			$this->_birthday = $birthday;
-			return $this;
-		}
-	
-	public static function fullUser ($id, $username, $password, $firstName, $lastName, $email, $birthday, $status){
+	public function __construct($id = NULL, $username, $password, $firstName, $lastName, $email, $birthday, $status = NULL){
 			$this->_id = $id;
 			$this->_username = $username;
 			$this->_password = $password;
