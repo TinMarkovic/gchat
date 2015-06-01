@@ -8,7 +8,7 @@ $sql = "SELECT * FROM user";
 //print_r($usersArray);
 //$test = new User($usersArray);
 //$test = DB::$db->clean($varijabla);
-$testUser = new User(5,"toni","sifra","fname","lname","email","rodj","Active");
+$testUser = new User("toni","sifra","fname","lname","email","rodj",10,"aktivan");
 //$testUser = User::fullUser(5,"toni","sifra","fname","lname","email","rodj","aktivan");
 print_r($testUser);
 echo nl2br("\n");
