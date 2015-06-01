@@ -9,7 +9,7 @@ public class Log
 	private $idOrigin;
 	private $idInteract;
 	
-	public function __construct($id = NULL, $type, $dateCreated, $data, $idOrigin, $idInteract){
+	public function __construct($type, $dateCreated, $data, $idOrigin, $idInteract, $id = NULL){
 			$id->_id = $id;
 			$this->_type = $type;
 			$this->_dateCreated = $dateCreated;

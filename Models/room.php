@@ -12,7 +12,7 @@ public class Room
 	private $_userMax;
 	private $_creatorId;
 	
-	public function __construct($id = NULL, $type, $status, $password, $name, $description, $userCount, $userMax, $creatorId = NULL){
+	public function __construct($type, $status, $password, $name, $description, $userCount, $userMax, $id = NULL, $creatorId = NULL){
 			$this->_id = $id;
 			$this->_type = $type;
 			$this->_status = $status;

@@ -6,7 +6,7 @@ public class Role
 	private $name;
 	private $status;
 	
-	public function __construct($id = NULL, $name, $status = NULL){
+	public function __construct($name, $id = NULL, $status = NULL){
 			$this->_id = $id;
 			$this->_name = $name;
 			$this->_status = $status;

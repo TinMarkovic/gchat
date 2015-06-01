@@ -8,7 +8,7 @@ public class userRole
 	private $_dateAssigned;
 	private $_roomId;
 	
-	public function __construct($id = NULL, $userId, $roleId, $dateAssigned, $roomId = NULL){
+	public function __construct($userId, $roleId, $dateAssigned, $id = NULL, $roomId = NULL){
 		$this->_id = $id;
 		$this->_userId = $userId;
 		$this->_roleId = $roleId;

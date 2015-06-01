@@ -11,7 +11,7 @@ class User
 	private $_birthday;
 	private $_status;
 
-	public function __construct($id = NULL, $username, $password, $firstName, $lastName, $email, $birthday, $status = NULL){
+	public function __construct($username, $password, $firstName, $lastName, $email, $birthday, $id = NULL, $status = NULL){
 			$this->_id = $id;
 			$this->_username = $username;
 			$this->_password = $password;

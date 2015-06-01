@@ -7,7 +7,7 @@ public class Token
 	private $_validTo;
 	private $_value;
 
-	public function __construct($id = NULL, $userId, $validTo, $value){
+	public function __construct($userId, $validTo, $value, $id = NULL){
 			$this->_id = $id;
 			$this->_userId = $userId;
 			$this->_validTo = $validTo;
