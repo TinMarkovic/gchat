@@ -2,7 +2,7 @@
 require_once "DAL/db.php";
 require_once "DAL/dbInfo.php";
 
-class UserController{		
+class userController{		
 	
 	private $_params;
 	
@@ -15,9 +15,9 @@ class UserController{
 		if($this->checkExist()===TRUE){
 			return "Username is taken. <br>";
 		}
-		$sql = "INSERT INTO user (username, password, firstName, lastName, email, birthday) ".
+		$sql = "INSERT INTO user (username, password, firstName, lastName, email) ".
 		"VALUES ('$username', '$password', '$firstName', ".
-		"'$lastName', '$email', '$birthday')";
+		"'$lastName', '$email')";
 		DB::$db->query($sql);
 		return TRUE;
 	}
