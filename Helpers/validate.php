@@ -9,6 +9,7 @@ class validate {
 			if (strlen($entry) > $maxLength) return("Your $key has ". strlen($entry)." signs, it should have less than $maxLength .<br>"); }
 		else
 			return true;
+		
 		return false;
 	}
 	
