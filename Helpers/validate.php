@@ -4,9 +4,9 @@ class validate {
 	
 	
 	function length($key, $entry, $minLength, $maxLength){
-		if ((strlen($entry) < $minLength)||(strlen($entry) > $maxLength)) 
+		if ((strlen($entry) < $minLength)||(strlen($entry) > $maxLength)) {
 			if (strlen($entry) < $minLength) return("Your $key has ". strlen($entry)." signs, it should have more than $minLength .<br>");
-			if (strlen($entry) > $maxLength) return("Your $key has ". strlen($entry)." signs, it should have less than $maxLength .<br>");
+			if (strlen($entry) > $maxLength) return("Your $key has ". strlen($entry)." signs, it should have less than $maxLength .<br>"); }
 		else
 			return true;
 		
