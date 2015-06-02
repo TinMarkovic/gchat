@@ -1,26 +1,22 @@
 <?php
-
-class User
+class UserFactory
 {
-	private $_id;
-	private $_username;
-	private $_password;
-	private $_firstName;
-	private $_lastName;
-	private $_email;
-	private $_birthday;
-	private $_status;
-
-	public function __construct($username, $password, $firstName, $lastName, $email, $birthday, $id = NULL, $status = NULL){
-			$this->_id = $id;
-			$this->_username = $username;
-			$this->_password = $password;
-			$this->_firstName = $firstName;
-			$this->_lastName = $lastName;
-			$this->_email = $email;
-			$this->_birthday = $birthday;
-			$this->_status = $status;
-			return $this;
-		}
+	public static function getById($id){
+		$sql = "SELECT * FROM user WHERE id = '$id'";
+		$result = DB::$db->query($sql);
+		
+		if($result->num_rows == 0) return FALSE;
+		
+		$obj = $result->fetch_object();
+		return new User($obj->username,
+						 $obj->password,
+						 $obj->firstName,
+						 $obj->lastName,
+						 $obj->email,
+						 $obj->birthday,
+						 $obj->id,
+						 $obj->status);
+	}
+	
 }
 ?>

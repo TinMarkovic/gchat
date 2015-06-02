@@ -1,7 +1,7 @@
 <?php
 
 require_once 'DAL/dbInfo.php';
-include 'Models/user.php';
+include 'Models/User.php';
 $sql = "SELECT * FROM user";
 //$varijabla = array('bla bla bla','buuuu');
 //$usersArray = DB::$db->toArray($sql);

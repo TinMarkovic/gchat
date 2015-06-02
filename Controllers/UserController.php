@@ -1,6 +1,8 @@
 <?php
 require_once "DAL/db.php";
 require_once "DAL/dbInfo.php";
+include "Models/User.php";
+include "Factory/UserFactory.php";
 
 class UserController{		
 	
@@ -15,11 +17,13 @@ class UserController{
 		if($this->checkExist()===TRUE){
 			return "Username is taken. <br>";
 		}
-		$sql = "INSERT INTO user (username, password, firstName, lastName, email, birthday) ".
-		"VALUES ('$username', '$password', '$firstName', ".
-		"'$lastName', '$email', '$birthday')";
-		DB::$db->query($sql);
-		return TRUE;
+		$user = new User($username, $password, $firstName, $lastName, $email, $birthday);
+		$sucess = $user->create();
+		if($sucess){
+			echo "Registracija Uspjesna";
+			return true;
+		}
+		return false;
 	}
 	
 	public function login(){
@@ -29,6 +33,14 @@ class UserController{
 		$userID = $result->ID;
 		if (!isset($userID) || empty($userID)) return "Credentials false!<br>";
 		return $userID;
+	}
+	
+	public function edit(){
+		$user = UserFactory::getById($this->_params["id"]);
+		// uredba polja
+		if ($this->_params["usernamme"]) $user->_username = $this->_params["username"];
+		$user->edit();
+		return $user;
 	}
 	
 	public function checkExist(){

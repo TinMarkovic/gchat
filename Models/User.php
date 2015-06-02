@@ -2,14 +2,14 @@
 
 class User
 {
-	private $_id;
-	private $_username;
-	private $_password;
-	private $_firstName;
-	private $_lastName;
-	private $_email;
-	private $_birthday;
-	private $_status;
+	public $_id;
+	public $_username;
+	public $_password;
+	public $_firstName;
+	public $_lastName;
+	public $_email;
+	public $_birthday;
+	public $_status;
 
 	public function __construct($username, $password, $firstName, $lastName, $email, $birthday, $id = NULL, $status = NULL){
 			$this->_id = $id;
@@ -22,5 +22,36 @@ class User
 			$this->_status = $status;
 			return $this;
 		}
+		
+	public function create(){
+		$sql = "INSERT INTO user (username, password, firstName, lastName, email, birthday, status) ".
+		"VALUES (?, ?, ?, ?, ?, ?, ?)";
+		
+		$stmt = DB::$db->prepare($sql);
+		$stmt->bind_param("sssssss", $this->_username, $this->_password, $this->_firstName,
+						  $this->_lastName, $this->_email, $this->_birthday, $this->_status);
+						  
+		$this->_status = "Active";
+		$stmt->execute();
+		return TRUE;	
+	}
+	
+	public function edit(){
+		
+		$sql = "UPDATE user SET username=?,	password=?, firstName=?,
+								lastName=?, email=?, birthday=?, status=?
+							WHERE id = ?";
+
+		$stmt = DB::$db->prepare($sql);
+		$stmt->bind_param("ssssssss", $this->_username, $this->_password, $this->_firstName,
+						  $this->_lastName, $this->_email, $this->_birthday, $this->_status, $this->_id);
+		$stmt->execute();
+		return TRUE;
+	}
+	
+	public function delete(){
+		
+		
+	}
 }
 ?>
