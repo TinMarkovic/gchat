@@ -14,7 +14,7 @@ class UserController{
 	
 	public function register(){
 		extract($this->_params);
-		if($this->checkExist()===TRUE){
+		if(!($this->checkExist()===false)){
 			return "Username is taken. <br>";
 		}
 		$user = new User($username, $password, $firstName, $lastName, $email, $birthday);
@@ -27,10 +27,14 @@ class UserController{
 	}
 	
 	public function login(){
-		extract($this->_params);
-		$sql = "SELECT ID FROM user WHERE username = '$username' AND password = '$password'";
-		$result = DB::$db->toArray($sql);
-		$userID = $result->ID;
+		$user = UserFactory::getByUsername($this->_params["username"]);
+		
+		if($user->_password != $this->_params["password"]){
+			return "Invalid password <br>";
+		}
+		
+		$userID = $user->_id;
+		
 		if (!isset($userID) || empty($userID)) return "Credentials false!<br>";
 		return $userID;
 	}
@@ -44,14 +48,8 @@ class UserController{
 	}
 	
 	public function checkExist(){
-		$username = $this->_params['username'];
-		$sql = "SELECT * FROM user WHERE username = '$username'";
-		$result = DB::$db->query($sql);
-		if($result->num_rows == 0){
-			return FALSE;
-		} else {
-			return TRUE;
-		}
+		$user = UserFactory::getByUsername($this->_params["username"]);
+		return $user;
 	}
 }
 	
