@@ -1,8 +1,9 @@
 <?php
 require_once "DAL/db.php";
 require_once "DAL/dbInfo.php";
-include "Models/User.php";
-include "Factory/UserFactory.php";
+require_once "Models/User.php";
+require_once "Factory/UserFactory.php";
+require_once "Models/Token.php";
 
 class UserController{		
 	
@@ -27,13 +28,30 @@ class UserController{
 	}
 	
 	public function login(){
-		$user = UserFactory::getByUsername($this->_params["username"]);
+		$user = $this->checkExist();
+		
+		if($user === false) return "User does not exist";
 		
 		if($user->_password != $this->_params["password"]){
 			return "Invalid password <br>";
 		}
 		
 		$userID = $user->_id;
+		
+		// Token creation for a logged in user
+		
+		$tokVal = md5(uniqid());
+		$tokTime = new DateTime();
+		$tokTime->add(new DateInterval('P10D'));
+		$tokTime = $tokTime->format('Y-m-d H:i:s');
+		
+
+		$token = new Token($userID, $tokTime, $tokVal);
+		$token->create();
+		
+		// Create cookie or give somehow
+		
+		// End token creation
 		
 		if (!isset($userID) || empty($userID)) return "Credentials false!<br>";
 		return $userID;
