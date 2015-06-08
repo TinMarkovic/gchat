@@ -1,6 +1,6 @@
 <?php
 
-public class userRole
+class userRole
 {
 	private $_id;
 	private $_userId;
@@ -16,6 +16,42 @@ public class userRole
 		$this->_roomId = $roomId;
 		return $this;
 	}
+	
+	public function create(){
+		$sql = "INSERT INTO userrole (userId, roleId, dateAssigned, roomId) ".
+		"VALUES (?, ?, ?, ?)";
+		
+		$stmt = DB::$db->prepare($sql);
+		$stmt->bind_param("iisi", $this->_userId ,$this->_roleId ,$this->_dateAssigned ,$this->_roomId);
+		$stmt->execute();
+		return TRUE;	
+	}
+	
+	public function edit($ajdi){
+		
+		$sql = "UPDATE userrole SET userId=?, roleId=?, dateAssigned=?, roomId=?
+								WHERE id = ?";
+
+		$stmt = DB::$db->prepare($sql);
+		$stmt->bind_param("iisii",$this->_userId, $this->_roleId, $this->_dateAssigned, $this->_roomId, $this->_id);
+		$stmt->execute();
+		return TRUE;
+	}
+	
+	public function delete(){
+		$sql = "UPDATE userrole SET userId=?, roleId=?, dateAssigned=?, roomId=?
+								WHERE id = ?";
+		
+		$stmt = DB::$db->prepare($sql);
+		
+		$stmt->bind_param("iisii",$this->_userId, $this->_roleId, $this->_dateAssigned, $this->_roomId, $this->_id);
+		
+		
+		$stmt->execute();
+		return TRUE;
+		
+	}
+	
 }
 
 ?>

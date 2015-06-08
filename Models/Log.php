@@ -1,6 +1,6 @@
 <?php
 
-public class Log
+class Log
 {
 	private $id;
 	private $type;

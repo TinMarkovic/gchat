@@ -16,10 +16,10 @@ class Token
 		}
 	public function create(){
 		$sql = "INSERT INTO token (userId, validTo, value) ".
-		"VALUES (?, ?, ?)";
+		"VALUES (?, ?, ?, ?)";
 		
 		$stmt = DB::$db->prepare($sql);
-		$stmt->bind_param("sss", $this->_userId, $this->_validTo, $this->_value);
+		$stmt->bind_param("iiss",$this->_id ,$this->_userId, $this->_validTo, $this->_value);
 		
 		$stmt->execute();
 		return TRUE;	
@@ -30,7 +30,7 @@ class Token
 		$sql = "UPDATE token SET  userId=?, validTo=?, value=? WHERE id = ?";
 		
 		$stmt = DB::$db->prepare($sql);
-		$stmt->bind_param("sssS", $this->_userId, $this->_validTo, $this->_value, $this->_id);
+		$stmt->bind_param("iiss", $this->_id, $this->_userId, $this->_validTo, $this->_value);
 		
 		$stmt->execute();
 		return TRUE;	
