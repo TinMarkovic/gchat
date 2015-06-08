@@ -12,9 +12,11 @@ Deadline je do srijede.
 
 ***
 
-Izbaciti unutar user kontrolera CRUD - prebaciti ga u model.
+Izbaciti unutar user kontrolera CRUD - prebaciti ga u model. +++
+updateali smo UserController i User php
 
-Napraviti objekt User koji koristimo u svim metodama.
+Napraviti objekt User koji koristimo u svim metodama. +++
+U ova dva gore je sada rješeno pitanje objekta i isti se koristi svuda.
 
 Napraviti osnovne CRUD operacije za Role & Permission. (uz to Model i controller)
 

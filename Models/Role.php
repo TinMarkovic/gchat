@@ -3,8 +3,8 @@
 class Role
 {
 	private $_id;
-	private $name;
-	private $status;
+	private $_name;
+	private $_status;
 	
 	public function __construct($name, $id = NULL, $status = NULL){
 			$this->_id = $id;

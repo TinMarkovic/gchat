@@ -39,7 +39,7 @@ class Room
 		return TRUE;	
 	}
 	
-	public function edit($ajdi){
+	public function edit(){
 		
 		$sql = "UPDATE room SET type=?,	status=?, password=?,
 								name=?, description=?, userMax=?

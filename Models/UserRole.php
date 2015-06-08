@@ -27,7 +27,7 @@ class userRole
 		return TRUE;	
 	}
 	
-	public function edit($ajdi){
+	public function edit(){
 		
 		$sql = "UPDATE userrole SET userId=?, roleId=?, dateAssigned=?, roomId=?
 								WHERE id = ?";
@@ -39,13 +39,11 @@ class userRole
 	}
 	
 	public function delete(){
-		$sql = "UPDATE userrole SET userId=?, roleId=?, dateAssigned=?, roomId=?
-								WHERE id = ?";
+		$sql = "DELETE FROM userrole WHERE id = ?";
 		
 		$stmt = DB::$db->prepare($sql);
 		
-		$stmt->bind_param("iisii",$this->_userId, $this->_roleId, $this->_dateAssigned, $this->_roomId, $this->_id);
-		
+		$stmt->bind_param("i", $this->_id);
 		
 		$stmt->execute();
 		return TRUE;
