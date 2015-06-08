@@ -1,29 +1,46 @@
 <?php
-
-public class Room
+class RoomFactory
 {
-	private $_id;
-	private $_type;
-	private $_status;
-	private $_password;
-	private $_name;
-	private $_description;
-	private $_userCount;
-	private $_userMax;
-	private $_creatorId;
-	
-	public function __construct($type, $status, $password, $name, $description, $userCount, $userMax, $id = NULL, $creatorId = NULL){
-			$this->_id = $id;
-			$this->_type = $type;
-			$this->_status = $status;
-			$this->_password = $password;
-			$this->_name = $name;
-			$this->_description = $description;
-			$this->_userCount = $userCount;
-			$this->_userMax = $userMax;
-			$this->_creatorId = $creatorId;
-			return $this;
-		}
-}
+	public static function getById($id){
+		$sql = "SELECT * FROM room WHERE id = ?";
+		$stmt = DB::$db->prepare($sql);
+		$stmt->bind_param("i", $id);
+		$stmt->execute();
+		$result = $stmt->get_result();
+		
+		if($result->num_rows == 0) return FALSE;
+		
+		$obj = $result->fetch_object();
+		return new Room($obj->type,
+						 $obj->status,
+						 $obj->password,
+						 $obj->name,
+						 $obj->description,
+						 $obj->userCount,
+						 $obj->userMax,
+						 $obj->id,
+						 $obj->creatorId);
+	}
+	public static function getByRoomName($rn){
+		$sql = "SELECT * FROM room WHERE name = ?";
+		$stmt = DB::$db->prepare($sql);
+		$stmt->bind_param("s", $rn);
+		$stmt->execute();
+		$result = $stmt->get_result();
+		
+		if($result->num_rows == 0) return false;
+		
+		$obj = $result->fetch_object();
+		return new Room($obj->type,
+						 $obj->status,
+						 $obj->password,
+						 $obj->name,
+						 $obj->description,
+						 $obj->userCount,
+						 $obj->userMax,
+						 $obj->id,
+						 $obj->creatorId);
+	}
 
+}
 ?>

@@ -37,7 +37,46 @@ class validate {
 	}
 	
 	
-	function registerForm($dataset){
+	function roomForm($dataset){
+		$roomTypes = array("Public", "Private");
+		
+		$error = "";
+		foreach($dataset as $key => $entry){
+			switch($key){
+				case "name":
+					$success = $this->length($key,$entry,4,20);
+					if ($success !== TRUE) {
+						$error = $error . $success;
+					} 
+					break;
+				case "password":
+					$success = $this->length($key,$entry,4,40);
+					if ($success !== TRUE) {
+						$error = $error . $success;
+					} 
+					break;
+				case "description":
+					$success = $this->length($key,$entry,4,120);
+					if ($success !== TRUE) {
+						$error = $error . $success;
+					} 
+					break;
+				case "type":
+					if (!(in_array($entry, $roomTypes))) {
+						$error = $error . "This room type is not recognized. <br>";
+					} 
+					break;
+			} // end switch
+		} // end foreach
+		
+		
+		if ($error == "")
+			return true;
+		else
+			return $error;
+	}
+	
+		function registerForm($dataset){
 		$error = "";
 		foreach($dataset as $key => $entry){
 			switch($key){

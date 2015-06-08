@@ -4,6 +4,7 @@ require_once "DAL/dbInfo.php";
 require_once "Models/User.php";
 require_once "Factory/UserFactory.php";
 require_once "Models/Token.php";
+require_once "Helpers/validate.php";
 
 class UserController{		
 	
@@ -18,6 +19,12 @@ class UserController{
 		if(!($this->checkExist()===false)){
 			return "Username is taken. <br>";
 		}
+		
+		$validator = new validate();
+		$result = $validator->registerForm($this->_params);
+		
+		if (!($result===TRUE)) return $result;
+		
 		$user = new User($username, $password, $firstName, $lastName, $email, $birthday);
 		$sucess = $user->create();
 		if($sucess){
@@ -30,7 +37,7 @@ class UserController{
 	public function login(){
 		$user = $this->checkExist();
 		
-		if($user === false) return "User does not exist";
+		if($user === false) return "User does not exist. <br>";
 		
 		if($user->_password != $this->_params["password"]){
 			return "Invalid password <br>";

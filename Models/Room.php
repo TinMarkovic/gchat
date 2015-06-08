@@ -12,7 +12,7 @@ class Room
 	private $_userMax;
 	private $_creatorId;
 	
-	public function __construct($type, $status, $password, $name, $description, $userCount, $userMax, $id = NULL, $creatorId = NULL){
+	public function __construct($type, $status, $password, $name, $description, $userCount, $userMax, $creatorId, $id = NULL){
 			$this->_id = $id;
 			$this->_type = $type;
 			$this->_status = $status;
@@ -27,14 +27,13 @@ class Room
 		
 	// treba jos dodati kako ubaciti ID od kreatora
 	public function create(){
-		$sql = "INSERT INTO room (type, status, password, name, description, userCount, userMax) ".
-		"VALUES (?, ?, ?, ?, ?, ?, ?)";
+		$sql = "INSERT INTO room (type, status, password, name, description, userCount, userMax, creatorId) ".
+		"VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 		
 		$stmt = DB::$db->prepare($sql);
-		$stmt->bind_param("sssssii", $this->_type, $this->_status, $this->_password,
-						  $this->_name, $this->_description, $this->_userCount, $this->_userMax);
+		$stmt->bind_param("sssssiii", $this->_type, $this->_status, $this->_password,
+						  $this->_name, $this->_description, $this->_userCount, $this->_userMax, $this->_creatorId);
 						  
-		//$this->creatorId = 1;
 		$stmt->execute();
 		return TRUE;	
 	}
@@ -61,7 +60,7 @@ class Room
 		
 		$this->_status = "Inactive";
 		
-		$stmt->bind_param("ssssiii", $this->_type, $this->_status, $this->_password,
+		$stmt->bind_param("sssssii", $this->_type, $this->_status, $this->_password,
 						  $this->_name, $this->_description, $this->_userMax, $this->_id);
 		$stmt->execute();
 		return TRUE;
