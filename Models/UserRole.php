@@ -8,7 +8,7 @@ class userRole
 	private $_dateAssigned;
 	private $_roomId;
 	
-	public function __construct($userId, $roleId, $dateAssigned, $id = NULL, $roomId = NULL){
+	public function __construct($userId, $roleId, $dateAssigned = NULL, $id = NULL, $roomId = NULL){
 		$this->_id = $id;
 		$this->_userId = $userId;
 		$this->_roleId = $roleId;
@@ -18,7 +18,7 @@ class userRole
 	}
 	
 	public function create(){
-		$sql = "INSERT INTO userrole (userId, roleId, dateAssigned, roomId) ".
+		$sql = "INSERT INTO userRole (userId, roleId, dateAssigned, roomId) ".
 		"VALUES (?, ?, ?, ?)";
 		
 		$stmt = DB::$db->prepare($sql);
@@ -27,7 +27,7 @@ class userRole
 		$stmt->execute();
 		return TRUE;	
 	}
-	
+	//samo je create napravljen ostatak provjerit radi li kako treba i editovat
 	public function edit(){
 		
 		$sql = "UPDATE userrole SET userId=?, roleId=?, dateAssigned=?, roomId=?

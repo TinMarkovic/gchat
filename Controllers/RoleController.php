@@ -63,6 +63,7 @@ class RoleController{
 	}
 
 //-------------------------------Permissions section down bellow----------------------------------------
+//napraviti provjeru da se nemoze dodati dupli zapis za istu rolu i permisiju
 
 	public function addPermission(){
 		extract($this->_params);

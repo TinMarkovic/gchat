@@ -25,7 +25,7 @@ class RolePermission
 		$stmt->execute();
 		return TRUE;	
 	}
-	
+	//samo je create napravljen ostatak provjerit radi li kako treba i editovat
 	public function edit(){
 		
 		$sql = "UPDATE userrole SET userId=?, roleId=?, dateAssigned=?, roomId=?
