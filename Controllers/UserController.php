@@ -67,7 +67,9 @@ class UserController{
 	public function edit(){
 		$user = UserFactory::getById($this->_params["id"]);
 		// uredba polja
-		if ($this->_params["usernamme"]) $user->_username = $this->_params["username"];
+		if ($this->_params["usernamme"]) {
+			 $user->_username = $this->_params["username"];
+		 }
 		$user->edit();
 		return $user;
 	}

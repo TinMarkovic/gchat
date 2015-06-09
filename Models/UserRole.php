@@ -22,6 +22,7 @@ class userRole
 		"VALUES (?, ?, ?, ?)";
 		
 		$stmt = DB::$db->prepare($sql);
+		$this->_dateAssigned = date('Y-m-d G:i:s');
 		$stmt->bind_param("iisi", $this->_userId ,$this->_roleId ,$this->_dateAssigned ,$this->_roomId);
 		$stmt->execute();
 		return TRUE;	

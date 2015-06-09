@@ -1,8 +1,8 @@
 <?php
-class roleFactory
+class PermissionFactory
 {
 	public static function getById($id){
-		$sql = "SELECT * FROM role WHERE id = ?";
+		$sql = "SELECT * FROM permission WHERE id = ?";
 		$stmt = DB::$db->prepare($sql);
 		$stmt->bind_param("i", $id);
 		$stmt->execute();
@@ -11,12 +11,13 @@ class roleFactory
 		if($result->num_rows == 0) return FALSE;
 		
 		$obj = $result->fetch_object();
-		return new Role($obj->name,
-							  $obj->id,
-							  $obj->status);
+		return new Permission($obj->permission,
+							  $obj->type,
+							  $obj->status,
+							  $obj->id);
 	}
-	public static function getByName($perm){
-		$sql = "SELECT * FROM role WHERE name = ?";
+	public static function getByPermission($perm){
+		$sql = "SELECT * FROM permission WHERE permission = ?";
 		$stmt = DB::$db->prepare($sql);
 		$stmt->bind_param("s", $perm);
 		$stmt->execute();
@@ -25,9 +26,10 @@ class roleFactory
 		if($result->num_rows == 0) return false;
 		
 		$obj = $result->fetch_object();
-		return new Role($obj->name,
-							  $obj->id,
-							  $obj->status);
+		return new Permission($obj->permission,
+							  $obj->type,
+							  $obj->status,
+							  $obj->id);
 	}
 
 }

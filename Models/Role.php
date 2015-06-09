@@ -2,9 +2,9 @@
 
 class Role
 {
-	private $_id;
-	private $_name;
-	private $_status;
+	public $_id;
+	public $_name;
+	public $_status;
 	
 	public function __construct($name, $id = NULL, $status = NULL){
 			$this->_id = $id;
@@ -27,11 +27,11 @@ class Role
 	
 	public function edit(){
 		
-		$sql = "UPDATE role SET name = ?
+		$sql = "UPDATE role SET name = ?, status = ?
 							WHERE id = ?";
 
 		$stmt = DB::$db->prepare($sql);
-		$stmt->bind_param("si",$this->_name, $this->_id);
+		$stmt->bind_param("ssi",$this->_name, $this->_status, $this->_id);
 		$stmt->execute();
 		return TRUE;
 	}
