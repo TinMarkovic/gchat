@@ -25,3 +25,9 @@ Napraviti osnovne CRUD operacije za Role & Permission. (uz to Model i controller
 Napraviti session autentikaciju. 
 
 Napraviti demo viewe.
+
+
+----------
+
+
+U modelu baze izbaciti polje permission iz tabele role. 
