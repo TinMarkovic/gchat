@@ -3,6 +3,7 @@ require_once "DAL/db.php";
 require_once "DAL/dbInfo.php";
 require_once "Models/User.php";
 require_once "Models/UserRole.php";
+require_once "Factory/UserRoleFactory.php";
 require_once "Models/Token.php";
 require_once "Factory/UserFactory.php";
 require_once "Controllers/RoleController.php";
@@ -37,6 +38,11 @@ class UserController{
 	}
 	
 	public function login(){
+		
+		if (!(isset($this->_params["username"]) && isset($this->_params["password"]))){
+			return "You have not entered a username/password. <br>";
+		}
+		
 		$user = $this->checkExist();
 		
 		if($user === false) return "User does not exist. <br>";
@@ -58,12 +64,7 @@ class UserController{
 		$token = new Token($userID, $tokTime, $tokVal);
 		$token->create();
 		
-		// Create cookie or give somehow
-		
-		// End token creation
-		
-		if (!isset($userID) || empty($userID)) return "Credentials false!<br>";
-		return $userID;
+		return $tokVal;
 	}
 	
 	public function edit(){
@@ -84,6 +85,7 @@ class UserController{
 		$user = UserFactory::getById($this->_params["id"]);
 		return $user;
 	}
+	
 
 //-------------------------------Roles section down bellow----------------------------------------
 //napraviti provjeru da se nemoze dodati dupli zapis za istog usera i rolu
@@ -106,7 +108,12 @@ class UserController{
 			$RP->create();
 		}
 	}
+	
+	public function getPerms(){
+		$urf = new UserRoleFactory();
+		$abc = $urf->getRolesByUserId(1);
+		return $abc;
+	}
 		
 }
-
 ?>

@@ -31,6 +31,5 @@ class PermissionFactory
 							  $obj->status,
 							  $obj->id);
 	}
-
 }
 ?>

@@ -1,21 +1,33 @@
 <?php
+require_once "Models/Role.php";
 
-public class userRole
+
+class UserRoleFactory
 {
-	private $_id;
-	private $_userId;
-	private $_roleId;
-	private $_dateAssigned;
-	private $_roomId;
-	
-	public function __construct($userId, $roleId, $dateAssigned, $id = NULL, $roomId = NULL){
-		$this->_id = $id;
-		$this->_userId = $userId;
-		$this->_roleId = $roleId;
-		$this->_dateAssigned = $dateAssigned;
-		$this->_roomId = $roomId;
-		return $this;
+	public function getRolesByUserId($uid){
+		$sql = "SELECT * FROM role WHERE id = (SELECT roleId FROM userRole WHERE userId = ?)";
+		$stmt = DB::$db->prepare($sql);
+		$stmt->bind_param("i", $uid);
+		$stmt->execute();
+		$result = $stmt->get_result();
+		
+		if($result === false) echo "Error!";
+		
+		if($result->num_rows == 0) return false;
+		
+		$objectList = array();
+		
+		while($obj = $result->fetch_object()){
+			$role = new Role($obj->id,
+								 $obj->name,
+								 $obj->status);
+			$objectList[] = $role;
+		}
+		
+		return ($objectList);
 	}
+	
+	
 }
 
 ?>

@@ -1,6 +1,7 @@
 <?php
+require_once "Models/Role.php";
 
-class userRole
+class UserRole
 {
 	private $_id;
 	private $_userId;

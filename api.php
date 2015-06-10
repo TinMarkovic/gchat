@@ -20,6 +20,28 @@ if( method_exists($controller, $action) === false ) {
     $result['success'] = false;
 	die("Action doesn't exit.");
 }
+/*
+//permissions
+$tokenExists = isset($params["token"]);
+
+if ($tokenExists) {
+	$user = UserFactory::getByToken($params["token"]);
+	if ($user === false) $tokenExists = false;
+}
+
+$nekiArray = array("login", "register");
+$userPermissions // popuniti userPerm
+$actionPermissions // definirati actPerm
+
+
+if ((in_array($action, $nekiArray))  && $tokenExists) {
+	$result["data"] = "You are already logged in. <br>";
+	$result["success"] = false;
+	print_r($result);
+	exit();
+}
+*/
+//---
 
 $result["data"] = $controller->$action();
 $result["success"] = true;

@@ -16,10 +16,10 @@ class Token
 		}
 	public function create(){
 		$sql = "INSERT INTO token (userId, validTo, value) ".
-		"VALUES (?, ?, ?, ?)";
+		"VALUES (?, ?, ?)";
 		
 		$stmt = DB::$db->prepare($sql);
-		$stmt->bind_param("iiss",$this->_id ,$this->_userId, $this->_validTo, $this->_value);
+		$stmt->bind_param("iss" ,$this->_userId, $this->_validTo, $this->_value);
 		
 		$stmt->execute();
 		return TRUE;	
