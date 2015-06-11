@@ -42,6 +42,8 @@ if ((in_array($action, $strangerPermissions))  && $tokenExists) {
 	exit();
 }
 
+
+
 // Napraviti logiku za poređenje permisija
 
 

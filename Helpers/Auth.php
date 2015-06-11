@@ -49,6 +49,8 @@ public static function getRequiredPermissions($name){
 	//	te ih vraćati kroz ovu funkciju. Za sad, radi primjera, idem bezvezno napraviti.
 	$perms = "universal";
 	
+	if ($name == "Remove User") return array("REMOVE USER");
+	
 	return $perms;
 }
 	
