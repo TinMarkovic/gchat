@@ -91,7 +91,6 @@ class UserController{
 //napraviti provjeru da se nemoze dodati dupli zapis za istog usera i rolu
 
 	public function addRole(){
-		extract($this->_params);
 		if(($this->checkExist()===false)){
 			return "User doesn't exist <br>";
 		}
@@ -110,9 +109,7 @@ class UserController{
 	}
 	
 	public function getPerms(){
-		$urf = new UserRoleFactory();
-		$abc = $urf->getRolesByUserId(1);
-		return $abc;
+		//
 	}
 		
 }

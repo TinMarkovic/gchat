@@ -29,16 +29,4 @@ Napraviti demo viewe.
 
 ----------
 
-
-U modelu baze izbaciti polje permission iz tabele role. 
-
-
-----
-
-SQL working stuff
-
-SELECT role.id, role.name, role.status
-FROM role
-INNER JOIN userRole
-ON role.id=userRole.roleId
-WHERE userRole.userId = 1;
+Napraviti nove UserController akcije koje rade, da se testira validacija.

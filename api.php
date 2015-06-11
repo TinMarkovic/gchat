@@ -1,4 +1,5 @@
 <?php
+require_once("Helpers/Auth.php");
 
 $params = $_REQUEST;
 
@@ -20,7 +21,6 @@ if( method_exists($controller, $action) === false ) {
     $result['success'] = false;
 	die("Action doesn't exit.");
 }
-/*
 //permissions
 $tokenExists = isset($params["token"]);
 
@@ -29,18 +29,23 @@ if ($tokenExists) {
 	if ($user === false) $tokenExists = false;
 }
 
-$nekiArray = array("login", "register");
-$userPermissions // popuniti userPerm
-$actionPermissions // definirati actPerm
+$strangerPermissions = array("login", "register");
+$userPermissions = Auth::getPermissionList($user->_id);
+$actionPermissions = Auth::getRequiredPermissions($action);
 
+print_r($userPermissions);
 
-if ((in_array($action, $nekiArray))  && $tokenExists) {
+if ((in_array($action, $strangerPermissions))  && $tokenExists) {
 	$result["data"] = "You are already logged in. <br>";
 	$result["success"] = false;
 	print_r($result);
 	exit();
 }
-*/
+
+// Napraviti logiku za poređenje permisija
+
+
+
 //---
 
 $result["data"] = $controller->$action();
