@@ -3,7 +3,7 @@ require_once("Helpers/Auth.php");
 
 $params = $_REQUEST;
 
-$action = $params['action'];
+$action = strtolower($params['action']) ;
 $controller = $params['controller'];
 
 //check if the controller exists. if it doesn't - stop
@@ -21,7 +21,8 @@ if( method_exists($controller, $action) === false ) {
     $result['success'] = false;
 	die("Action doesn't exit.");
 }
-//permissions
+
+//-------- PERMISSIONS
 $tokenExists = isset($params["token"]);
 
 if ($tokenExists) {
@@ -33,26 +34,40 @@ $strangerPermissions = array("login", "register");
 $userPermissions = Auth::getPermissionList($user->_id);
 $actionPermissions = Auth::getRequiredPermissions($action);
 
-print_r($userPermissions);
 
-if ((in_array($action, $strangerPermissions))  && $tokenExists) {
-	$result["data"] = "You are already logged in. <br>";
+if (in_array($action, $strangerPermissions)) {
+	if ($tokenExists){
+		$result["data"] = "You are already logged in. <br>";
+		$result["success"] = false;
+		print_r($result);
+		exit();
+	} else {
+		$result["data"] = $controller->$action();
+		$result["success"] = true;
+		print_r($result);
+		exit();
+	}
+}
+
+$error = "";
+
+foreach ($actionPermissions as $actionPerm) {
+	if (!(in_array($actionPerm, $userPermissions))){
+		$error = $error . "Insufficient permissions: $actionPerm missing. <br>";
+	}	
+}
+
+if ($error != ""){
+	$result["data"] = $error;
 	$result["success"] = false;
 	print_r($result);
 	exit();
 }
 
-
-
-// Napraviti logiku za poređenje permisija
-
-
-
-//---
-
 $result["data"] = $controller->$action();
 $result["success"] = true;
 
 print_r($result);
+exit();
 
 ?>

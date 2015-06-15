@@ -52,6 +52,16 @@ class UserRole
 		
 	}
 	
+	public function existsInDB(){
+		
+		$sql = "UPDATE userrole SET userId=?, roleId=?, dateAssigned=?, roomId=?
+								WHERE id = ?";
+
+		$stmt = DB::$db->prepare($sql);
+		
+		$stmt->bind_param("ii",$this->_userId, $this->_roleId,
+	}
+	
 }
 
 ?>

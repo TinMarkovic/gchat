@@ -98,19 +98,16 @@ class UserController{
 		if(($RC->checkExist()===false)){
 			return "Role doesn't exist <br>";
 		}
+		
 		if(isset($this->_params["roomId"])){
 			$RP = new UserRole($this->_params["id"], $this->_params["roleId"], $this->_params["roomId"]);
-			$RP->create();
 		} else {
-			//napraviti provjeru ako se dodjeli roli vise permisija odjednom
 			$RP = new UserRole($this->_params["id"], $this->_params["roleId"]);
-			$RP->create();
 		}
+		
+		$RP->create();
 	}
 	
-	public function getPerms(){
-		//
-	}
 		
 }
 ?>

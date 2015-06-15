@@ -1,15 +1,5 @@
 <?php
 
-//~ SELECT permission.permission
-//~ FROM role
-//~ INNER JOIN userRole
-//~ ON role.id=userRole.roleId
-//~ INNER JOIN rolePermission
-//~ ON role.id=rolePermission.roleId
-//~ INNER JOIN permission
-//~ ON rolePermission.permissionId=permission.id
-//~ WHERE userRole.userId = ?;
-
 class Auth{
 public static function getPermissionList($uid){
 		
@@ -44,14 +34,13 @@ public static function getPermissionList($uid){
 	}
 	
 public static function getRequiredPermissions($name){
+
+	$requiredPermissions = array(
+		//	"" => array("" ,""),
+			"checkexist" => array("See user"),
+	);
 	
-	//	Napraviti logiku gdje se nalaze permisije koje zahtjeva jedna akcija,
-	//	te ih vraćati kroz ovu funkciju. Za sad, radi primjera, idem bezvezno napraviti.
-	$perms = "universal";
-	
-	if ($name == "Remove User") return array("REMOVE USER");
-	
-	return $perms;
+	return $requiredPermissions[$name];
 }
 	
 }
