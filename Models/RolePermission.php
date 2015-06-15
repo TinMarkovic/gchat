@@ -48,6 +48,25 @@ class RolePermission
 		return TRUE;
 		
 	}
+	public function findInDB(){
+		
+		$sql = "SELECT * FROM rolePermission WHERE roleId = ? AND permissionId = ?";
+
+		$stmt = DB::$db->prepare($sql);
+		
+		$stmt->bind_param("ii", $this->_roleId, $this->_permissionId);
+		
+		$result = $stmt->execute();
+		$result = $stmt->get_result();
+		
+		if($result->num_rows == 0) return false;
+		
+		$obj = $result->fetch_object();
+		
+		
+		$this->_id = $obj->id;
+		return $this;
+	}
 	
 }
 

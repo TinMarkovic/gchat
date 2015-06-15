@@ -38,9 +38,14 @@ public static function getRequiredPermissions($name){
 	$requiredPermissions = array(
 		//	"" => array("" ,""),
 			"checkexist" => array("See user"),
+			"addrole" => array("Add role"),
+			"addpermission" => array("Add permission"),
+			"logout" => array("See user"),
+			
 	);
 	
-	return $requiredPermissions[$name];
+	if(isset($requiredPermissions[$name])) return $requiredPermissions[$name];
+	return array("Undefined");
 }
 	
 }

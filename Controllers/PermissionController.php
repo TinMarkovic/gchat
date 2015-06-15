@@ -22,7 +22,7 @@ class PermissionController{
 		$permission = new Permission($permission, $type);
 		$sucess = $permission->create();
 		if($sucess){
-			echo "Dodavanje permisije uspjesno";
+			echo "Dodavanje permisije uspjesno. <br>";
 			return true;
 		}
 		return false;
@@ -52,8 +52,8 @@ class PermissionController{
 	
 	public function checkExist(){
 		if(!isset($this->_params["id"])){
-		$permission = PermissionFactory::getByPermission($this->_params["permission"]);
-		return $permission;
+			$permission = PermissionFactory::getByPermission($this->_params["permission"]);
+			return $permission;
 		}
 		$permission = PermissionFactory::getById($this->_params["id"]);
 		return $permission;

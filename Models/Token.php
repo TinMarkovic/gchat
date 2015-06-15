@@ -43,12 +43,13 @@ class Token
 		
 		$stmt = DB::$db->prepare($sql);
 		
-		$this->_validTo = ""; //To be determined what to use as invalid token
 		
+		$this->_validTo = NULL ; //To be determined what to use as invalid token
+				
 		$stmt->bind_param("sssS", $this->_userId, $this->_validTo, $this->_value, $this->_id);
 		
-		$stmt->execute();
-		return TRUE;
+		$result = $stmt->execute();
+		return $result;
 		
 	}
 	

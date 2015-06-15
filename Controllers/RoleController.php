@@ -55,29 +55,39 @@ class RoleController{
 	
 	public function checkExist(){
 		if(!isset($this->_params["id"])){
-		$role = RoleFactory::getByName($this->_params["name"]);
-		return $role;
+			$role = RoleFactory::getByName($this->_params["name"]);
+			return $role;
 		}
 		$role = RoleFactory::getById($this->_params["id"]);
 		return $role;
 	}
 
 //-------------------------------Permissions section down bellow----------------------------------------
-//napraviti provjeru da se nemoze dodati dupli zapis za istu rolu i permisiju
 
 	public function addPermission(){
-		extract($this->_params);
-		if(($this->checkExist()===false)){
+		
+		
+		$role = $this->checkExist();
+		if($role === false){
 			return "Role doesn't exist <br>";
 		}
-		$PC = new PermissionController(array("id"=>$this->_params["permissionId"]));
-		if(($PC->checkExist()===false)){
+		
+		$PC = new PermissionController(array("id"=>$this->_params["permissionId"], "permission"=>$this->_params["permissionName"]));
+		$permission = $PC->checkExist();
+		if($permission===false){
 			return "Permission doesn't exist <br>";
 		}
 		
-		//napraviti provjeru ako se dodjeli roli vise permisija odjednom
-		$RP = new RolePermission($this->_params["id"], $this->_params["permissionId"]);
+		$RP = new RolePermission($role->_id, $permission->_id);
+		
+		$check = $RP->findInDB();
+		
+		if($check != false){
+			return("This role already has this permission. <br>");
+		}
+		
 		$RP->create();
+		return true;
 	}
 	
 }

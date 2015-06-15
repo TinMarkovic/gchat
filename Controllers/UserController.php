@@ -8,6 +8,7 @@ require_once "Models/Token.php";
 require_once "Factory/UserFactory.php";
 require_once "Controllers/RoleController.php";
 require_once "Helpers/validate.php";
+require_once "Factory/TokenFactory.php";
 
 class UserController{		
 	
@@ -67,6 +68,16 @@ class UserController{
 		return $tokVal;
 	}
 	
+	public function logout(){
+		
+		$token = TokenFactory::getByValue($this->_params["token"]);
+		
+		$result = $token->delete();
+		
+		return $result;
+	}
+	
+	
 	public function edit(){
 		$user = UserFactory::getById($this->_params["id"]);
 		// uredba polja
@@ -91,23 +102,34 @@ class UserController{
 //napraviti provjeru da se nemoze dodati dupli zapis za istog usera i rolu
 
 	public function addRole(){
-		if(($this->checkExist()===false)){
+		
+		
+		$user = $this->checkExist();
+		if($user === false){
 			return "User doesn't exist <br>";
 		}
-		$RC = new RoleController(array("id"=>$this->_params["roleId"]));
-		if(($RC->checkExist()===false)){
+		
+		$RC = new RoleController(array("id"=>$this->_params["roleId"], "name"=>$this->_params["roleName"]));
+		$role = $RC->checkExist();
+		if($role===false){
 			return "Role doesn't exist <br>";
 		}
 		
 		if(isset($this->_params["roomId"])){
-			$RP = new UserRole($this->_params["id"], $this->_params["roleId"], $this->_params["roomId"]);
+			$RP = new UserRole($user->_id, $role->_id, $this->_params["roomId"]);
 		} else {
-			$RP = new UserRole($this->_params["id"], $this->_params["roleId"]);
+			$RP = new UserRole($user->_id, $role->_id);
+		}
+		
+		$check = $RP->findInDB();
+		
+		if($check != false){
+			return("This user already has this role. <br>");
 		}
 		
 		$RP->create();
+		return true;
 	}
 	
-		
 }
 ?>

@@ -1,9 +1,19 @@
 <?php
-require_once("Helpers/Auth.php");
+require_once "Helpers/Auth.php";
+require_once "Factory/UserFactory.php";
+require_once "DAL/db.php";
+require_once "DAL/dbInfo.php";
+require_once "Models/User.php";
+require_once "Models/UserRole.php";
+require_once "Factory/UserRoleFactory.php";
+require_once "Models/Token.php";
+require_once "Factory/UserFactory.php";
+require_once "Controllers/RoleController.php";
+require_once "Helpers/validate.php";
 
 $params = $_REQUEST;
 
-$action = strtolower($params['action']) ;
+$action = strtolower($params['action']);
 $controller = $params['controller'];
 
 //check if the controller exists. if it doesn't - stop

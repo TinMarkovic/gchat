@@ -1,5 +1,8 @@
 <?php
 require_once "Models/Role.php";
+require_once "DAL/db.php";
+require_once "DAL/dbInfo.php";
+
 
 class UserRole
 {
@@ -52,14 +55,24 @@ class UserRole
 		
 	}
 	
-	public function existsInDB(){
+	public function findInDB(){
 		
-		$sql = "UPDATE userrole SET userId=?, roleId=?, dateAssigned=?, roomId=?
-								WHERE id = ?";
+		$sql = "SELECT * FROM userRole WHERE userId = ? AND roleId = ?";
 
 		$stmt = DB::$db->prepare($sql);
 		
-		$stmt->bind_param("ii",$this->_userId, $this->_roleId,
+		$stmt->bind_param("ii", $this->_userId, $this->_roleId);
+		
+		$result = $stmt->execute();
+		$result = $stmt->get_result();
+		
+		if($result->num_rows == 0) return false;
+		
+		$obj = $result->fetch_object();
+		
+		
+		$this->_id = $obj->id;
+		return $this;
 	}
 	
 }

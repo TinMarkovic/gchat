@@ -1,6 +1,6 @@
 <?php
 
-public class TokenFactory
+class TokenFactory
 {
 	/*
 	private $_id;
@@ -27,7 +27,7 @@ public class TokenFactory
 	public static function getByValue($value){
 		$sql = "SELECT * FROM token WHERE value = ?";
 		$stmt = DB::$db->prepare($sql);
-		$stmt->bind_param("s", $id);
+		$stmt->bind_param("s", $value);
 		$stmt->execute();
 		$result = $stmt->get_result();
 		
