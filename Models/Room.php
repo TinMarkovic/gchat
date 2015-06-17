@@ -2,15 +2,15 @@
 
 class Room
 {
-	private $_id;
-	private $_type;
-	private $_status;
-	private $_password;
-	private $_name;
-	private $_description;
-	private $_userCount;
-	private $_userMax;
-	private $_creatorId;
+	public $_id;
+	public $_type;
+	public $_status;
+	public $_password;
+	public $_name;
+	public $_description;
+	public $_userCount;
+	public $_userMax;
+	public $_creatorId;
 	
 	public function __construct($type, $status, $password, $name, $description, $userCount, $userMax, $creatorId, $id = NULL){
 			$this->_id = $id;

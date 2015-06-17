@@ -34,14 +34,15 @@ public static function getPermissionList($uid){
 	}
 	
 public static function getRequiredPermissions($name){
-
 	$requiredPermissions = array(
+		// THEY ALL NEED TO BE LOWERCASE ON THE LEFT SIDE
 		//	"" => array("" ,""),
 			"checkexist" => array("See user"),
 			"addrole" => array("Add role"),
 			"addpermission" => array("Add permission"),
 			"logout" => array("See user"),
-			
+			"displaymessages" => array(),
+			"postmessage" => array(),
 	);
 	
 	if(isset($requiredPermissions[$name])) return $requiredPermissions[$name];

@@ -12,6 +12,8 @@ require_once "Controllers/RoleController.php";
 require_once "Helpers/validate.php";
 
 $params = $_REQUEST;
+$params["cookie"] = $_COOKIE;
+
 
 $action = strtolower($params['action']);
 $controller = $params['controller'];
@@ -33,10 +35,10 @@ if( method_exists($controller, $action) === false ) {
 }
 
 //-------- PERMISSIONS
-$tokenExists = isset($params["token"]);
+$tokenExists = isset($params["cookie"]["token"]);
 
 if ($tokenExists) {
-	$user = UserFactory::getByToken($params["token"]);
+	$user = UserFactory::getByToken($params["cookie"]["token"]);
 	if ($user === false) $tokenExists = false;
 }
 

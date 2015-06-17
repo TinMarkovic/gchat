@@ -32,8 +32,7 @@ class UserController{
 		$user = new User($username, $password, $firstName, $lastName, $email, $birthday);
 		$sucess = $user->create();
 		if($sucess){
-			echo "Registracija Uspjesna";
-			return true;
+			return "Registracija Uspjesna";
 		}
 		return false;
 	}
@@ -111,7 +110,7 @@ class UserController{
 		
 		$RC = new RoleController(array("id"=>$this->_params["roleId"], "name"=>$this->_params["roleName"]));
 		$role = $RC->checkExist();
-		if($role===false){
+		if($role === false){
 			return "Role doesn't exist <br>";
 		}
 		

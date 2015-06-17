@@ -36,7 +36,7 @@ class User
 		return TRUE;	
 	}
 	
-	public function edit($ajdi){
+	public function edit(){
 		
 		$sql = "UPDATE user SET username=?,	password=?, firstName=?,
 								lastName=?, email=?, birthday=?, status=?
@@ -44,7 +44,7 @@ class User
 
 		$stmt = DB::$db->prepare($sql);
 		$stmt->bind_param("ssssssss", $this->_username, $this->_password, $this->_firstName,
-						  $this->_lastName, $this->_email, $this->_birthday, $this->_status, $ajdi);
+						  $this->_lastName, $this->_email, $this->_birthday, $this->_status, $this->_id);
 		$stmt->execute();
 		return TRUE;
 	}
