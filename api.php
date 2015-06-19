@@ -38,12 +38,18 @@ if( method_exists($controller, $action) === false ) {
 $tokenExists = isset($params["cookie"]["token"]);
 
 if ($tokenExists) {
+	
 	$user = UserFactory::getByToken($params["cookie"]["token"]);
-	if ($user === false) $tokenExists = false;
+	
+	if ($user === false) {
+		$tokenExists = false;
+	}else{
+		$userPermissions = Auth::getPermissionList($user->_id);
+	}
 }
 
 $strangerPermissions = array("login", "register");
-$userPermissions = Auth::getPermissionList($user->_id);
+
 $actionPermissions = Auth::getRequiredPermissions($action);
 
 

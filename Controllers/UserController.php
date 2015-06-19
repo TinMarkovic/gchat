@@ -51,20 +51,11 @@ class UserController{
 			return "Invalid password <br>";
 		}
 		
-		$userID = $user->_id;
-		
 		// Token creation for a logged in user
-		
-		$tokVal = md5(uniqid());
-		$tokTime = new DateTime();
-		$tokTime->add(new DateInterval('P10D'));
-		$tokTime = $tokTime->format('Y-m-d H:i:s');
-		
-
-		$token = new Token($userID, $tokTime, $tokVal);
+		$token = TokenFactory::build($user->_id);
 		$token->create();
 		
-		return $tokVal;
+		return $token->_value;
 	}
 	
 	public function logout(){

@@ -2,10 +2,10 @@
 
 class Token
 {
-	private $_id;
-	private $_userId;
-	private $_validTo;
-	private $_value;
+	public $_id;
+	public $_userId;
+	public $_validTo;
+	public $_value;
 
 	public function __construct($userId, $validTo, $value, $id = NULL){
 			$this->_id = $id;

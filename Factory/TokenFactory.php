@@ -39,6 +39,13 @@ class TokenFactory
 						 $obj->value,
 						 $obj->id);
 	}
+	public static function build($userID){
+		$tokVal = md5(uniqid());
+		$tokTime = new DateTime();
+		$tokTime->add(new DateInterval('P10D'));
+		$tokTime = $tokTime->format('Y-m-d H:i:s');
+		return new Token($userID, $tokTime, $tokVal);	
+	}
 }
 
 ?>
